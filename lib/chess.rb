@@ -8,7 +8,7 @@ require_relative('pieces/bishop')
 require_relative('pieces/king')
 require_relative('pieces/queen')
 
-# chessboard represented as a 8x8 board
+# chessboard represented as a 10x12 board
 class ChessBoard
   attr_accessor :white_pieces, :black_pieces
 

@@ -19,10 +19,13 @@ class ChessBoard
 
   # given a color and position, return true or false if the square is in check by the opposite color
   def check_square(color, pos)
-    yield_pieces(pos, [9, -9, 11, -11]) { |piece| opponent_piece?(piece, color, [King, Queen, Bishop]) } ||
-      yield_pieces(pos, [10, -10, -1, 1]) { |piece| opponent_piece?(piece, color, [King, Queen, Rook]) } ||
-      opponent_knight?(pos, color) ||
-      opponent_pawn?(pos, color)
+    yield_pieces(pos, [9, -9, 11, -11]) do |piece| # horizontal pieces
+      return true if opponent_piece?(piece, color, [King, Queen, Bishop])
+    end
+    yield_pieces(pos, [10, -10, -1, 1]) do |piece| # linear pieces
+      return true if opponent_piece?(piece, color, [King, Queen, Rook])
+    end
+    opponent_knight?(pos, color) || opponent_pawn?(pos, color)
   end
 
   private

@@ -1,22 +1,7 @@
 # frozen-string-literal: true
 
-require_relative('pieces/piece')
-require_relative('pieces/pawn')
-require_relative('pieces/rook')
-require_relative('pieces/knight')
-require_relative('pieces/bishop')
-require_relative('pieces/king')
-require_relative('pieces/queen')
-
-# chessboard represented as a 10x12 board
-class ChessBoard
-  attr_accessor :white_pieces, :black_pieces
-
-  def initialize
-    @board = Array.new(120, 0) # one dimensional 10x12 board
-    # TODO: Assign squares outside of 8x8 playing field as nil
-  end
-
+# Handles controlling and sharing information of the pieces on the board
+module ChessController
   # given a color and position, return true or false if the square is in check by the opposite color
   def check_square(color, pos)
     yield_pieces(pos, [9, -9, 11, -11]) do |piece| # horizontal pieces
@@ -29,12 +14,6 @@ class ChessBoard
   end
 
   private
-
-  attr_accessor :board
-
-  def init_board
-    # TODO: put all of the pieces at the start of the round
-  end
 
   def opponent_piece?(piece, color, piece_types)
     true if piece_types.include?(piece.class) && piece.color != color
@@ -61,13 +40,6 @@ class ChessBoard
     moves.each do |move|
       cur_pos = pos + move
       return true if opponent_piece?(@board[cur_pos], color, [Pawn])
-    end
-  end
-
-  def debug_print
-    @board.each_with_index do |square, index|
-      print "#{square} "
-      print "\n" if ((index + 1) % 8).zero?
     end
   end
 end

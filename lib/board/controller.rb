@@ -33,6 +33,7 @@ module ChessController
       cur_pos = pos + move
       return true if opponent_piece?(@board[cur_pos], color, [Knight])
     end
+    false
   end
 
   def opponent_pawn?(pos, color)
@@ -41,5 +42,6 @@ module ChessController
       cur_pos = pos + move
       return true if opponent_piece?(@board[cur_pos], color, [Pawn])
     end
+    false
   end
 end

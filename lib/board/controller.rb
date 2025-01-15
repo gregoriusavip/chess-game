@@ -13,6 +13,11 @@ module ChessController
     opponent_knight?(pos, color) || opponent_pawn?(pos, color)
   end
 
+  def check_king(color)
+    pos = (color == :white ? @kwhite.pos : @kblack.pos)
+    check_square(color, pos)
+  end
+
   private
 
   def opponent_piece?(piece, color, piece_types)

@@ -11,17 +11,19 @@ class ChessBoard
   include ChessDisplay
   include ChessController
 
+  attr_reader :board
+
   def initialize
     @board = Array.new(120, 0) # one dimensional 10x12 board
     set_nils
     @black_pieces = Set.new
     @white_pieces = Set.new
-    init_board
+    init_board # TODO: should only run if its a new game and not a loaded game
   end
 
   private
 
-  attr_accessor :board, :white_pieces, :black_pieces
+  attr_accessor :white_pieces, :black_pieces
 
   def set_nils
     20.times do |i|
@@ -48,6 +50,7 @@ class ChessBoard
     pieces.each_with_index do |piece, pos|
       @board[offset + pos] = piece.new(color, offset + pos)
       (color.eql?(:black) ? black_pieces : white_pieces).add(board[offset + pos])
+      add_king(piece, color) if piece.instance_of?(King)
     end
   end
 
@@ -61,6 +64,8 @@ class ChessBoard
       white_pieces.add(board[pos])
     end
   end
-end
 
-ChessBoard.new.debug_print
+  def add_king(king, color)
+    color == :black ? (@kblack = king) : (@kwhite = king)
+  end
+end

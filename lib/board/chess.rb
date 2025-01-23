@@ -4,14 +4,15 @@
   require_relative("../pieces/#{f_name}")
 end
 require_relative('display')
-require_relative('controller')
+require_relative('check_pieces')
 
 # chessboard represented as a 10x12 board
 class ChessBoard
   include ChessDisplay
-  include ChessController
+  include ChessCheckPieces
 
   attr_reader :board
+  attr_accessor :double_push_white, :double_push_black
 
   def initialize
     @board = Array.new(120, 0) # one dimensional 10x12 board
@@ -44,13 +45,13 @@ class ChessBoard
   end
 
   # Set rook, knight, bishop, queen, king
-  def put_piece(color)
+  def put_piece(color) # rubocop:disable Metrics/AbcSize
     offset = (color.eql?(:black) ? 21 : 91)
     pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
     pieces.each_with_index do |piece, pos|
       @board[offset + pos] = piece.new(color, offset + pos)
       (color.eql?(:black) ? black_pieces : white_pieces).add(board[offset + pos])
-      add_king(piece, color) if piece.instance_of?(King)
+      add_king(@board[offset + pos], color) if @board[offset + pos].instance_of?(King)
     end
   end
 

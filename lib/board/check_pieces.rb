@@ -1,7 +1,7 @@
 # frozen-string-literal: true
 
-# Handles controlling and sharing information of the pieces on the board
-module ChessController
+# Contains information regarding pieces' check status
+module ChessCheckPieces
   # given a color and position, return true or false if the square is in check by the opposite color
   def check_square(color, pos)
     yield_pieces(pos, [9, -9, 11, -11]) do |piece| # horizontal pieces

@@ -40,7 +40,7 @@ class Pawn < Piece
     push = movement[:mobility]
     target = pos + push
     yield target if board[target].eql?(0)
-    yield target + push if board[target + push].eql?(0)
+    yield target + push if !@moved && board[target + push].eql?(0)
   end
 
   # yields pseudo legal moves

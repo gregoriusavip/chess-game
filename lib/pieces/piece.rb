@@ -15,6 +15,12 @@ class Piece
     @pos = pos
   end
 
+  def legal_moves(chessboard)
+    @movement.each do |move|
+      search(chessboard.board, move) { |target| yield to_notation(target), nil unless in_check?(chessboard, target) }
+    end
+  end
+
   protected
 
   attr_writer :piece_type, :color, :pos, :moved
@@ -28,6 +34,14 @@ class Piece
     chessboard.board[pos] = self
     chessboard.board[target] = target_piece
     res
+  end
+
+  def search(board, direction)
+    cur = direction + pos
+    until board[cur].nil? || (board[cur].is_a?(Piece) && board[cur].color == color)
+      yield cur
+      cur += direction
+    end
   end
 
   def to_s

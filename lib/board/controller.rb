@@ -50,6 +50,6 @@ module ChessController
   def validate_pos(input)
     return false if input.length != 2
 
-    input[0].match?(/[a-h]/) && input[1].match?(/[1-8]/) ? true : false
+    input[0].match?(/[a-h]/) && input[1].match?(/[1-8]/)
   end
 end

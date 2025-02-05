@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 %w[piece pawn rook knight bishop king queen].each do |f_name|
   require_relative("../pieces/#{f_name}")

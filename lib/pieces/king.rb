@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 require_relative('piece')
 require_relative('rook')
@@ -8,13 +8,13 @@ class King < Piece
   attr_reader :movement
 
   def initialize(color, pos)
-    super(color, pos)
+    super
     @piece_type = (@color == :black ? "\u265A" : "\u2654")
     @movement = [-1, 1, 9, -9, -11, 11, 10, -10]
   end
 
   def legal_moves(chessboard)
-    super(chessboard)
+    super
     return if chessboard.check_king(color)
 
     t_castle = color == :white ? '1' : '8'

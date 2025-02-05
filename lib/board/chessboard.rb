@@ -5,11 +5,13 @@
 end
 require_relative('display')
 require_relative('check_pieces')
+require_relative('controller')
 
 # chessboard represented as a 10x12 board
 class ChessBoard
   include ChessDisplay
   include ChessCheckPieces
+  include ChessController
 
   attr_reader :board
   attr_accessor :double_push_white, :double_push_black
@@ -20,6 +22,10 @@ class ChessBoard
     @black_pieces = Set.new
     @white_pieces = Set.new
     init_board # TODO: should only run if its a new game and not a loaded game
+  end
+
+  def gen_move(color)
+    color == :white ? create_white_move_list : create_black_move_list
   end
 
   private
@@ -68,5 +74,33 @@ class ChessBoard
 
   def add_king(king, color)
     color == :black ? (@kblack = king) : (@kwhite = king)
+  end
+
+  protected
+
+  attr_accessor :white_moves, :black_moves
+
+  def add_piece(piece_type, color, target)
+    @board[target] = piece_type.new(color, target, moved: true)
+    (color == :white ? @white_pieces : @black_pieces).add(@board[target])
+  end
+
+  def remove_piece(piece)
+    @white_pieces.delete(piece)
+    @black_pieces.delete(piece)
+  end
+
+  def create_white_move_list
+    @white_moves = Hash.new { |h, key| h[key] = {} }
+    @white_pieces.each do |piece|
+      piece.legal_moves(self) { |notation, type| white_moves[piece.pos][notation] = type }
+    end
+  end
+
+  def create_black_move_list
+    @black_moves = Hash.new { |h, key| h[key] = {} }
+    @black_pieces.each do |piece|
+      piece.legal_moves(self) { |notation, type| black_moves[piece.pos][notation] = type }
+    end
   end
 end

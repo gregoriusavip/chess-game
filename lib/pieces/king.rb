@@ -17,11 +17,17 @@ class King < Piece
     super(chessboard)
     return if chessboard.check_king(color)
 
-    yield '', :king_side if king_castle(chessboard.board) && king_check?(chessboard)
-    yield '', :queen_side if queen_castle(chessboard.board) && queen_check?(chessboard)
+    t_castle = color == :white ? '1' : '8'
+    yield "g#{t_castle}", :king_side if king_castle(chessboard.board) && king_check?(chessboard)
+    yield "c#{t_castle}", :queen_side if queen_castle(chessboard.board) && queen_check?(chessboard)
   end
 
   private
+
+  def search(board, direction)
+    cur = direction + pos
+    yield cur unless board[cur].nil? || (board[cur].is_a?(Piece) && board[cur].color == color)
+  end
 
   def king_castle(board)
     return false if @moved

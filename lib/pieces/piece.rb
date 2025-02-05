@@ -5,7 +5,8 @@ require_relative('../notation')
 # Base class for any chess pieces
 class Piece
   include Notation
-  attr_reader :piece_type, :color, :pos, :moved
+  attr_reader :piece_type, :color
+  attr_accessor :pos, :moved
 
   def initialize(color, pos, moved: false)
     return unless (color == :white) || (color == :black)
@@ -23,7 +24,7 @@ class Piece
 
   protected
 
-  attr_writer :piece_type, :color, :pos, :moved
+  attr_writer :piece_type, :color
 
   # return true if the move is truly valid (king is not in check), false otherwise
   def in_check?(chessboard, target)

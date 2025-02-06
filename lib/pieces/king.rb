@@ -24,6 +24,17 @@ class King < Piece
 
   private
 
+  # return true if the move is truly valid (king is not in check), false otherwise
+  def in_check?(chessboard, target)
+    chessboard.board[pos] = 0
+    target_piece = chessboard.board[target]
+    chessboard.board[target] = self
+    res = chessboard.check_square(color, target)
+    chessboard.board[pos] = self
+    chessboard.board[target] = target_piece
+    res
+  end
+
   def search(board, direction)
     cur = direction + pos
     yield cur unless board[cur].nil? || (board[cur].is_a?(Piece) && board[cur].color == color)

@@ -17,9 +17,9 @@ module ChessController
     end
   end
 
-  def make_move(piece, target_not)
+  def make_move(piece, t_notation)
     @board[piece.pos] = 0
-    target = to_position(target_not)
+    target = to_position(t_notation)
     target_piece = @board[target]
     @board[target] = piece
     piece.pos = target

@@ -14,7 +14,7 @@ class ChessBoard
   include ChessController
 
   attr_reader :board
-  attr_accessor :double_push_white, :double_push_black
+  attr_accessor :double_push_white, :double_push_black, :kblack, :kwhite
 
   def initialize
     @board = Array.new(120, 0) # one dimensional 10x12 board

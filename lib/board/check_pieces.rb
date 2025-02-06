@@ -42,7 +42,7 @@ module ChessCheckPieces
   end
 
   def opponent_pawn?(pos, color)
-    moves = (color == :black ? [-9, -11] : [9, 11])
+    moves = (color == :white ? [-9, -11] : [9, 11])
     moves.each do |move|
       cur_pos = pos + move
       return true if opponent_piece?(@board[cur_pos], color, [Pawn])

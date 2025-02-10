@@ -20,7 +20,7 @@ class Pawn < Piece
     pushes(chessboard.board) { |target| yield to_notation(target), nil unless in_check?(chessboard, target) }
     captures(chessboard.board) { |target| yield to_notation(target), nil unless in_check?(chessboard, target) }
     en_passant(chessboard) do |target|
-      yield to_notation(target), :en_passant if in_check_ep?(chessboard, target)
+      yield to_notation(target), :en_passant unless in_check_ep?(chessboard, target)
     end
   end
 

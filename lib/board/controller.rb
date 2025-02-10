@@ -22,7 +22,6 @@ module ChessController
     current_pos = piece.pos
     target = to_position(t_not)
 
-    # TODO: ADD OTHER MOVE FUNCTION
     case move_type
     when :en_passant
       en_passant_move(piece, target)

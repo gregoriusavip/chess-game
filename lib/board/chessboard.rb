@@ -103,4 +103,10 @@ class ChessBoard
       piece.legal_moves(self) { |notation, type| black_moves[piece.pos][notation] = type }
     end
   end
+
+  def swap(pos1, pos2)
+    temp = board[pos1]
+    board[pos1] = board[pos2]
+    board[pos2] = temp
+  end
 end

@@ -26,6 +26,10 @@ module ChessController
     case move_type
     when :en_passant
       en_passant_move(piece, target)
+    when :king_side
+      king_side_move(piece)
+    when :queen_side
+      queen_side_move(piece)
     else
       standard_move(piece, target)
     end
@@ -35,8 +39,6 @@ module ChessController
   end
 
   private
-
-  # --- Functions for each move types
 
   def standard_move(piece, target)
     move_helper(piece, target)
@@ -51,7 +53,26 @@ module ChessController
     @board[target + offset] = piece
     piece.pos = target + offset
   end
-  # TODO: ADD OTHER MOVE FUNCTION
+
+  def king_side_move(piece)
+    if piece.color == :white
+      swap(95, 97)
+      swap(98, 96)
+    elsif piece.color == :black
+      swap(25, 27)
+      swap(28, 26)
+    end
+  end
+
+  def queen_side_move(piece)
+    if piece.color == :white
+      swap(95, 93)
+      swap(91, 94)
+    elsif piece.color == :black
+      swap(25, 23)
+      swap(21, 24)
+    end
+  end
 
   # helper function for most move type
   def move_helper(piece, target)

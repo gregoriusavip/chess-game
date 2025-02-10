@@ -13,8 +13,7 @@ class ChessBoard
   include ChessCheckPieces
   include ChessController
 
-  attr_reader :board
-  attr_accessor :double_push_white, :double_push_black, :kblack, :kwhite
+  attr_reader :board, :double_push_white, :double_push_black
 
   def initialize
     @board = Array.new(120, 0) # one dimensional 10x12 board
@@ -79,6 +78,7 @@ class ChessBoard
   protected
 
   attr_accessor :white_moves, :black_moves
+  attr_writer :double_push_white, :double_push_black
 
   def add_piece(piece_type, color, target)
     @board[target] = piece_type.new(color, target, moved: true)

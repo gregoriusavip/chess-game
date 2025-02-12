@@ -16,7 +16,7 @@ class Chess < ChessBoard
   private
 
   def player_move(color)
-    debug_print
+    print_board
     gen_move(color)
     return true if game_over?(color)
 

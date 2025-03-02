@@ -41,6 +41,8 @@ class Piece
     cur = direction + pos
     until board[cur].nil? || (board[cur].is_a?(Piece) && board[cur].color == color)
       yield cur
+      return if board[cur].is_a?(Piece)
+
       cur += direction
     end
   end

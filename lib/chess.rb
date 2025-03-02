@@ -28,7 +28,7 @@ class Chess < ChessBoard
     moves = color == :white ? @white_moves : @black_moves
     return false unless moves.empty?
 
-    print 'GAME OVER!!!'
+    print "Game Over!, the winner is #{color == :black ? :white : :black}\n"
     true
   end
 end

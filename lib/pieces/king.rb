@@ -7,7 +7,7 @@ require_relative('rook')
 class King < Piece
   attr_reader :movement
 
-  def initialize(color, pos)
+  def initialize(color, pos, moved: false)
     super
     @piece_type = (@color == :black ? "\u265A" : "\u2654")
     @movement = [-1, 1, 9, -9, -11, 11, 10, -10]

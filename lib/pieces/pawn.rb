@@ -6,7 +6,7 @@ require_relative('piece')
 class Pawn < Piece
   attr_reader :movement
 
-  def initialize(color, pos)
+  def initialize(color, pos, moved: false)
     super
     @piece_type = (@color == :black ? "\u265F" : "\u2659")
     @movement = if color == :black

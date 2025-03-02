@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require_relative '../prompt'
+
 # methods for moving pieces to the board
 module ChessPieceMovement
+  include Prompts
+
   protected
 
   def standard_move(piece, target)
@@ -58,11 +62,11 @@ module ChessPieceMovement
     piece.color == :black ? (@double_push_black = target) : (@double_push_white = target)
   end
 
-  # TODO: HANDLE PROMO FUNCTION
   def promo(piece, target)
-    return false unless [1, 8].include?((target - 110) / 10)
+    return false unless [1, 8].include?((110 - target) / 10)
 
-    print 'promo'
+    remove_piece(piece)
+    add_piece(promo_prompt, piece.color, target)
     true
   end
 end
